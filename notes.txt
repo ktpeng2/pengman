@@ -1,0 +1,9 @@
+peng 7 lives
+
+head
+beak (drawin penguin)
+body
+left arm
+right arm
+left leg
+right leg
