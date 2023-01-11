@@ -1,0 +1,25 @@
+body{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main-container{
+    height: 500px;
+    width: 900px;
+    background-color: lightblue;
+    display: flex;
+}
+
+.L-box{
+    width: 66%;
+}
+.R-box{
+    background-color: blanchedalmond;
+    flex: 1 1 auto;
+}
+#word-space{
+    font-size: 20px;
+    letter-spacing: 5px;
+}
