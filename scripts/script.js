@@ -1,41 +1,46 @@
-
+//fetching words from json file and setting it to wordsList
 fetch('./scripts/words.json')
     .then((response) => response.json())
     .then((json) => init(json['words']));
 
 let wordsList, wordsListLength, wordDisplay;
-let rolledWordNums = new Set();
-
 let currWord = "";
+let enteredLettersStr = "";
+let rolledWordNums = new Set();
+let enteredLetters = new Set();
+
+
 const word_rr = document.getElementById('word-rr');
 const word_space = document.getElementById('word-space');
 word_rr.addEventListener("click", reroll);
 
+const inputBox = document.getElementById('input-box');
+const enteredLettersBox = document.getElementById('entered-letters');
+inputBox.addEventListener('input', enterLetter);
+
+
+function init(words){
+    wordsList = words;
+    wordsListLength = Object.keys(wordsList).length-1;
+}
+
 function isLetter(str) {
   return str.length === 1 && str.match(/[a-z]/i);
 }
-
-let inputLetters = new Set();
-
-str = "";
-const input = document.querySelector('input');
-const log = document.getElementById('da-box');
     
-input.addEventListener('input', updateValue);
-    
-function updateValue(e){
+function enterLetter(e){
     if (isLetter(e.target.value.toLowerCase())){
-        if (inputLetters.has(e.target.value.toLowerCase())){
+        if (enteredLetters.has(e.target.value.toLowerCase())){
         console.log(e.target.value.toLowerCase() + ' already input');
         }
         else{
-            inputLetters.add(e.target.value.toLowerCase());
-            str += e.target.value.toLowerCase();
-            log.textContent = str;
+            enteredLetters.add(e.target.value.toLowerCase());
+            enteredLettersStr += e.target.value.toLowerCase();
+            enteredLettersBox.textContent = enteredLettersStr;
             fillDisplay(e.target.value.toLowerCase());
         }
     }
-    input.value = '';
+    inputBox.value = '';
 }
 
 function reroll(){
@@ -55,13 +60,6 @@ function reroll(){
     wordDisplay = "_".repeat(currWord.length);
     word_space.textContent=wordDisplay;
     reset();
-}
-
-function init(words){
-    let usedWords = new Set();
-    wordsList = words;
-    wordsListLength = Object.keys(wordsList).length-1;
-    //refernce words by words[#]
 }
 
 function fillDisplay(letter){
@@ -90,8 +88,8 @@ function updateWordDisplay(){
 
 function reset(){
     const emptySet = new Set();
-    inputLetters = emptySet;
-    str = "";
-    log.textContent = str;
+    enteredLetters = emptySet;
+    enteredLettersStr = "";
+    enteredLettersBox.textContent = enteredLettersStr;
     
 }
