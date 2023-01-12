@@ -84,7 +84,7 @@ function fillDisplay(letter){
     else{
         guesses += 1;
         displayLifeImg();
-        if (guesses === 7){
+        if (guesses === 8){
             inPlay = false;
             displayInput();
             lives.src = "./img/guess_final.jpg";
@@ -115,7 +115,9 @@ function reset(){
     enteredLettersStr = "";
     enteredLettersBox.textContent = enteredLettersStr;
     statusBox.textContent = "";
-    lives.visibility = "visible";
+    guesses = 0;
+    lives.visibility = "hidden";
+    lives.src = "";
 }
 
 function displayInput(){
