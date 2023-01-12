@@ -8,6 +8,8 @@ let currWord = "";
 let enteredLettersStr = "";
 let rolledWordNums = new Set();
 let enteredLetters = new Set();
+let guesses = 0;
+let inPlay = false;
 
 
 const word_rr = document.getElementById('word-rr');
@@ -17,6 +19,11 @@ word_rr.addEventListener("click", reroll);
 const inputBox = document.getElementById('input-box');
 const enteredLettersBox = document.getElementById('entered-letters');
 inputBox.addEventListener('input', enterLetter);
+
+const statusBox = document.getElementById('status-box');
+const lives = document.getElementById('lives');
+
+displayInput();
 
 
 function init(words){
@@ -46,6 +53,8 @@ function enterLetter(e){
 function reroll(){
     let dupe = true;
     let roll = Math.floor(Math.random() * wordsListLength);
+    inPlay = true;
+    displayInput();
     while (dupe){
         if (rolledWordNums.has(roll)){
             roll = Math.floor(Math.random() * wordsListLength);
@@ -73,7 +82,21 @@ function fillDisplay(letter){
         console.log("word contains " + letter);
     }
     else{
+        guesses += 1;
+        displayLifeImg();
+        if (guesses === 7){
+            inPlay = false;
+            displayInput();
+            lives.src = "./img/guess_final.jpg";
+            statusBox.textContent = "out of LIVES!\nthe word is " + currWord;
+        }
+        
         console.log('no match');
+    }
+    if (wordDisplay === currWord){
+        statusBox.textContent = "congrats u got the word!";
+        inPlay = false;
+        displayInput();
     }
 }
 
@@ -91,5 +114,16 @@ function reset(){
     enteredLetters = emptySet;
     enteredLettersStr = "";
     enteredLettersBox.textContent = enteredLettersStr;
-    
+    statusBox.textContent = "";
+    lives.visibility = "visible";
+}
+
+function displayInput(){
+    if(inPlay) inputBox.style.visibility = "visible";
+    else inputBox.style.visibility = "hidden";
+}
+
+function displayLifeImg(){
+    lives.visibility = "visible";
+    lives.src = "./img/guess_" + guesses + ".jpg";
 }
