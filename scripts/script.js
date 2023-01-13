@@ -83,12 +83,14 @@ function fillDisplay(letter){
     }
     else{
         guesses += 1;
-        displayLifeImg();
-        if (guesses === 8){
+        if (guesses >= 8){
             inPlay = false;
             displayInput();
             lives.src = "./img/guess_final.jpg";
             statusBox.textContent = "out of LIVES!\nthe word is " + currWord;
+        }
+        else{
+            displayLifeImg();
         }
         
         console.log('no match');
