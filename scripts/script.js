@@ -36,15 +36,17 @@ function isLetter(str) {
 }
     
 function enterLetter(e){
-    if (isLetter(e.target.value.toLowerCase())){
-        if (enteredLetters.has(e.target.value.toLowerCase())){
-        console.log(e.target.value.toLowerCase() + ' already input');
-        }
-        else{
-            enteredLetters.add(e.target.value.toLowerCase());
-            enteredLettersStr += e.target.value.toLowerCase();
-            enteredLettersBox.textContent = enteredLettersStr;
-            fillDisplay(e.target.value.toLowerCase());
+    if (inPlay) {
+        if (isLetter(e.target.value.toLowerCase())){
+            if (enteredLetters.has(e.target.value.toLowerCase())){
+            console.log(e.target.value.toLowerCase() + ' already input');
+            }
+            else{
+                enteredLetters.add(e.target.value.toLowerCase());
+                enteredLettersStr += e.target.value.toLowerCase();
+                enteredLettersBox.textContent = enteredLettersStr;
+                fillDisplay(e.target.value.toLowerCase());
+            }
         }
     }
     inputBox.value = '';
