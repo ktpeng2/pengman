@@ -21,7 +21,7 @@ const enteredLettersBox = document.getElementById('entered-letters');
 inputBox.addEventListener('input', enterLetter);
 
 const statusBox = document.getElementById('status-box');
-const lives = document.getElementById('lives');
+const mainImg = document.getElementById('main-img');
 
 displayInput();
 
@@ -51,6 +51,7 @@ function enterLetter(e){
 }
 
 function reroll(){
+    word_rr.textContent = "reroll word";
     let dupe = true;
     let roll = Math.floor(Math.random() * wordsListLength);
     inPlay = true;
@@ -86,7 +87,7 @@ function fillDisplay(letter){
         if (guesses >= 8){
             inPlay = false;
             displayInput();
-            lives.src = "./img/guess_final.jpg";
+            mainImg.src = "./img/guess_final.jpg";
             statusBox.textContent = "out of LIVES!\nthe word is " + currWord;
         }
         else{
@@ -118,8 +119,7 @@ function reset(){
     enteredLettersBox.textContent = enteredLettersStr;
     statusBox.textContent = "";
     guesses = 0;
-    lives.visibility = "hidden";
-    lives.src = "";
+    mainImg.src = "./img/guess_0.jpg";
 }
 
 function displayInput(){
@@ -128,6 +128,5 @@ function displayInput(){
 }
 
 function displayLifeImg(){
-    lives.visibility = "visible";
-    lives.src = "./img/guess_" + guesses + ".jpg";
+    mainImg.src = "./img/guess_" + guesses + ".jpg";
 }
